@@ -33,6 +33,8 @@ class Application : MultiDexApplication(), HasAndroidInjector {
         fun getAppContext(): Application? {
             return instance
         }
+        var context: Context? = getAppContext()?.applicationContext
+
     }
 
 }

@@ -3,7 +3,7 @@ package com.techbayportal.wataya.helper
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
-import com.techbayportal.wataya.Application
+import com.techbayportal.wataya.Application.Companion.context
 
 class AppStatus {
     var connectivityManager: ConnectivityManager? = null
@@ -30,6 +30,5 @@ class AppStatus {
 
     companion object {
         val instance = AppStatus()
-        var context: Context? = Application.applicationContext()
     }
 }

@@ -1,6 +1,7 @@
 package com.techbayportal.wataya.helper
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.os.Handler
 import java.text.ParseException
@@ -16,5 +17,10 @@ object Helper {
             activity.finish()
             activity.startActivity(Intent(activity, aClass.java))
         }, millSec.toLong())
+    }
+
+    fun  getPixelsFromDp(context: Context, dp : Int):Int {
+        var scale = context.resources.displayMetrics.density
+        return  (dp * scale + 0.5f).toInt()
     }
 }
