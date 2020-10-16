@@ -12,4 +12,47 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/darker_gray"
+        app:layout_constraintTop_toTopOf="@+id/map_view"
+        app:layout_constraintLeft_toLeftOf="@+id/map_view"
+        app:layout_constraintRight_toRightOf="@+id/map_view"
+        android:orientation="vertical">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:includeFontPadding="false"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:textSize="25sp"
+        android:hint="City"
+        android:textColorHint="@android:color/black"/>
+
+    <androidx.appcompat.widget.AppCompatSpinner
+        android:id="@+id/city_spinner"
+        android:layout_height="35dp"
+        android:layout_width="match_parent"
+        android:textSize="@dimen/_22ssp"
+        android:includeFontPadding="false"
+        android:textColorHint="@android:color/black"
+        android:textDirection="ltr"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:includeFontPadding="false"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:textSize="25sp"
+        android:hint="Area"
+        android:textColorHint="@android:color/black"/>
+
+    <androidx.appcompat.widget.AppCompatSpinner
+        android:id="@+id/area_spinner"
+        android:layout_height="35dp"
+        android:layout_width="match_parent"
+        android:textSize="@dimen/_22ssp"
+        android:includeFontPadding="false"
+        android:textColorHint="@android:color/black"
+        android:textDirection="ltr"/>
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

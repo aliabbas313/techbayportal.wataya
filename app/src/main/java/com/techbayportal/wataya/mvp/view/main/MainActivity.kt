@@ -8,9 +8,12 @@ import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
 import android.os.Bundle
-import android.widget.ImageView
+import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.api.GoogleApiClient
@@ -26,23 +29,18 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.kotlinpermissions.KotlinPermissions
-import com.techbayportal.wataya.Application.Companion.context
 import com.techbayportal.wataya.R
-import com.techbayportal.wataya.helper.Helper
 import com.techbayportal.wataya.mvp.data.remote.model.BaseModel
 import com.techbayportal.wataya.mvp.data.remote.model.response.UserData
+import com.techbayportal.wataya.mvp.view.base.BaseActivity
 import com.techbayportal.wataya.util.VectorDrawableUtils
 import com.techbayportal.wataya.util.widget.MapWrapperLayout
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
+import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 
-class MainActivity : AppCompatActivity(), MainInterfaces.MainView, OnMapReadyCallback {
-
-    fun supportFragmentInjector(): AndroidInjector<Fragment> = dispatchingAndroidInjector
-
-    @Inject
-    lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Fragment>
+class MainActivity : BaseActivity(), MainInterfaces.MainView, OnMapReadyCallback {
 
     @Inject
     lateinit var mMainPresenter: MainActivityPresenter<MainInterfaces.MainView>
@@ -60,11 +58,15 @@ class MainActivity : AppCompatActivity(), MainInterfaces.MainView, OnMapReadyCal
 
     private val onMapReady: MutableLiveData<Boolean> = MutableLiveData()
 
+    private lateinit var lifecycleOwner: LifecycleOwner
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         activity = this
+        lifecycleOwner = this
+
         mMainPresenter.onAttach(this)
         mapFragment = supportFragmentManager
             .findFragmentById(R.id.map_view) as SupportMapFragment?
@@ -79,15 +81,66 @@ class MainActivity : AppCompatActivity(), MainInterfaces.MainView, OnMapReadyCal
     }
 
     override fun showData(data: BaseModel<UserData>) {
+
+        var cities: ArrayList<Int> = ArrayList()
+        var areas: List<UserData.AreasOfCity> = ArrayList()
+        var userAddresses: List<UserData.UserAddres> = ArrayList()
+
+        var citiesList: ArrayList<String> = ArrayList()
+        var areasList: ArrayList<String> = ArrayList()
+
+        var city_selected_id: Int = 0
+
+        val citySelected: MutableLiveData<Boolean> = MutableLiveData()
+
+        data.data!!.cities.forEach {
+            citiesList.add(it.name)
+            cities.add(it.cityId)
+        }
+
+        var cityAdapter: ArrayAdapter<String> = ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, citiesList)
+        cityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        city_spinner.adapter = cityAdapter
+
+        city_spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+            override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
+                city_selected_id = cities[position]
+                citySelected.value = true
+            }
+        }
+
+        citySelected.observe(lifecycleOwner, androidx.lifecycle.Observer {
+            areasList.clear()
+            data.data!!.areasOfCities.forEach {
+                if(it.cityId == city_selected_id) {
+                    areasList.add(it.name)
+                }
+            }
+
+            var areaAdapter: ArrayAdapter<String> = ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, areasList)
+            areaAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            area_spinner.adapter = areaAdapter
+
+            area_spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onNothingSelected(parent: AdapterView<*>?) {}
+                override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
+                }
+            }
+        })
+
+
     }
 
     override fun showError(error: String) {
     }
 
     override fun showLoading() {
+        progress(true)
     }
 
     override fun hideLoading() {
+        progress(false)
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
@@ -125,9 +178,16 @@ class MainActivity : AppCompatActivity(), MainInterfaces.MainView, OnMapReadyCal
                                 val state = result.locationSettingsStates
                                 when (status.statusCode) {
                                     LocationSettingsStatusCodes.SUCCESS -> {
-                                        locationManager?.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,0L,0f, loctionListener)
+                                        locationManager?.requestLocationUpdates(
+                                            LocationManager.NETWORK_PROVIDER,
+                                            0L,
+                                            0f,
+                                            loctionListener
+                                        )
 //                                      mGoogleMap.isMyLocationEnabled = true
-                                        mGoogleMap.setOnMyLocationClickListener(onMyLocationClickListener)
+                                        mGoogleMap.setOnMyLocationClickListener(
+                                            onMyLocationClickListener
+                                        )
                                     }
                                     LocationSettingsStatusCodes.RESOLUTION_REQUIRED ->
                                         try {
@@ -193,7 +253,14 @@ class MainActivity : AppCompatActivity(), MainInterfaces.MainView, OnMapReadyCal
                         .position(LatLng(it.latitude, it.longitude))
                         .title("Your Location")
                     currentMarker = mGoogleMap.addMarker(marker)
-                    mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(it.latitude, it.longitude), 18f))
+                    mGoogleMap.moveCamera(
+                        CameraUpdateFactory.newLatLngZoom(
+                            LatLng(
+                                it.latitude,
+                                it.longitude
+                            ), 18f
+                        )
+                    )
 
                 }
             }

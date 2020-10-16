@@ -16,6 +16,7 @@
 
 package com.techbayportal.wataya.di.module
 
+import com.techbayportal.wataya.mvp.view.base.BaseActivity
 import com.techbayportal.wataya.mvp.view.main.MainActivity
 import com.techbayportal.wataya.mvp.view.splash.SplashActivity
 import dagger.Module
@@ -24,6 +25,9 @@ import dagger.android.ContributesAndroidInjector
 @Suppress("unused")
 @Module
 abstract class ActivityBuildersModule {
+
+    @ContributesAndroidInjector
+    abstract fun contributeBaseActivity(): BaseActivity
 
     @ContributesAndroidInjector
     abstract fun contributeSplashActivity(): SplashActivity
