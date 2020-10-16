@@ -6,16 +6,10 @@
     android:layout_height="match_parent"
     tools:context=".mvp.view.main.MainActivity">
 
-    <com.techbayportal.wataya.util.widget.MapWrapperLayout
-        android:id="@+id/map_relative_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
     <fragment
         android:id="@+id/map_view"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-    </com.techbayportal.wataya.util.widget.MapWrapperLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
