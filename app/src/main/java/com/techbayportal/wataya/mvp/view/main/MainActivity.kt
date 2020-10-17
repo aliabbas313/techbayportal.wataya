@@ -122,7 +122,7 @@ class MainActivity : BaseActivity(), MainInterfaces.MainView, OnMapReadyCallback
                                 when (status.statusCode) {
                                     LocationSettingsStatusCodes.SUCCESS -> {
                                         locationManager?.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0L, 0f, loctionListener)
-                                      mGoogleMap.isMyLocationEnabled = true
+                                        mGoogleMap.isMyLocationEnabled = true
                                         mGoogleMap.setOnMyLocationClickListener(onMyLocationClickListener)
                                     }
                                     LocationSettingsStatusCodes.RESOLUTION_REQUIRED ->

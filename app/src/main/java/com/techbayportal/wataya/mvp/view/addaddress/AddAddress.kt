@@ -8,6 +8,7 @@ import com.techbayportal.wataya.R
 import android.view.LayoutInflater
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import com.techbayportal.wataya.mvp.view.base.BaseActivity
@@ -15,7 +16,9 @@ import com.techbayportal.wataya.mvp.view.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_add_address.*
 import com.techbayportal.wataya.mvp.data.remote.model.BaseModel
 import com.techbayportal.wataya.mvp.data.remote.model.request.AddUserRequest
+import com.techbayportal.wataya.mvp.data.remote.model.response.AddUserResponse
 import com.techbayportal.wataya.mvp.data.remote.model.response.UserData
+import com.techbayportal.wataya.util.widget.Dialog
 import kotlinx.android.synthetic.main.fragment_add_address.view.*
 
 class AddAddress(private var lifecycleOwner: LifecycleOwner) : BaseFragment(), AddAddressInterfaces.AddAddressView {
@@ -115,6 +118,20 @@ class AddAddress(private var lifecycleOwner: LifecycleOwner) : BaseFragment(), A
                 }
             }
         })
+    }
+
+    override fun showAddUserResponse(data: BaseModel<AddUserResponse>) {
+        var dial: AlertDialog?=null
+
+        activity?.let {
+            dial = Dialog.build((it as BaseActivity),
+                data.data!!.apartment+", "+data.data!!.buildingName+", "+data.data!!.streetAddress,
+                "ok",
+                View.OnClickListener {
+                    dial!!.dismiss()
+                }, true)
+            dial!!.show()
+        }
     }
 
     override fun showError(error: String) {

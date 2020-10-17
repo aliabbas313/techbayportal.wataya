@@ -83,7 +83,7 @@ constructor(
                 .subscribe({
                     if (ResponseCode.isBetweenSuccessRange(it.code)) {
                         mvpView!!.hideLoading()
-                        mvpView!!.showData(it)
+                        mvpView!!.showAddUserResponse(it)
 
                         it.let { ti ->
                             ti.data.let { data ->

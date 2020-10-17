@@ -4,6 +4,7 @@ import com.techbayportal.wataya.mvp.data.local.PreferencesHelper
 import com.techbayportal.wataya.mvp.data.remote.ApiService
 import com.techbayportal.wataya.mvp.data.remote.model.BaseModel
 import com.techbayportal.wataya.mvp.data.remote.model.request.AddUserRequest
+import com.techbayportal.wataya.mvp.data.remote.model.response.AddUserResponse
 import com.techbayportal.wataya.mvp.data.remote.model.response.UserData
 import io.reactivex.Observable
 import javax.inject.Inject
@@ -19,7 +20,7 @@ constructor(var mPreferencesHelper: PreferencesHelper, var iApiService: ApiServi
         return iApiService.getUserAddresses(device_id, lang)
     }
 
-    fun addUserAddress(body: AddUserRequest): Observable<BaseModel<UserData>> {
+    fun addUserAddress(body: AddUserRequest): Observable<BaseModel<AddUserResponse>> {
         return iApiService.addUserAddress(body)
     }
 }
