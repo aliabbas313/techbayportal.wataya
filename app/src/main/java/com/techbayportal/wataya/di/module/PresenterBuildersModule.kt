@@ -3,6 +3,8 @@ package com.techbayportal.wataya.di.module
 import com.techbayportal.wataya.mvp.data.DataManager
 import com.techbayportal.wataya.mvp.view.main.MainActivityPresenter
 import com.techbayportal.wataya.mvp.view.main.MainInterfaces
+import com.techbayportal.wataya.mvp.view.addaddress.AddAddressPresenter
+import com.techbayportal.wataya.mvp.view.addaddress.AddAddressInterfaces
 import com.techbayportal.wataya.mvp.view.splash.SplashActivityPresenter
 import com.techbayportal.wataya.mvp.view.splash.SplashInterfaces
 import dagger.Module
@@ -25,6 +27,13 @@ class PresenterBuildersModule {
                                        schedulerProvider: SchedulerProvider,
                                        disposable: CompositeDisposable): MainActivityPresenter<MainInterfaces.MainView> {
         return MainActivityPresenter(dataManager, schedulerProvider, disposable)
+    }
+
+    @Provides
+    fun provideAddAddressPresenter(dataManager: DataManager,
+                                   schedulerProvider: SchedulerProvider,
+                                   disposable: CompositeDisposable): AddAddressPresenter<AddAddressInterfaces.AddAddressView> {
+        return AddAddressPresenter(dataManager, schedulerProvider, disposable)
     }
 
 }

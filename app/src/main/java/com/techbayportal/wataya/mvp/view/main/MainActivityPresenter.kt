@@ -21,47 +21,4 @@ constructor(
 ) : BasePresenter<V>(schedulerProvider = schedulerProvider, compositeDisposable = disposable),
     MainInterfaces.MainPresenter<Any?> {
 
-    override fun getUserAddresses(device_id: Int, lang: String) {
-
-        mvpView!!.showLoading()
-
-        compositeDisposable.add(
-            mDataManager.getUserAddresses(device_id, lang)
-                .observeOn(AndroidSchedulers.mainThread())
-                .retryWhen(
-                    DeviceAvailabilityRetryWithDelay(
-                        Constant.MAX_RETRIES,
-                        Constant.RETRY_DELAY
-                    )
-                )
-                .subscribeOn(Schedulers.io())
-                .subscribe({
-                    if (ResponseCode.isBetweenSuccessRange(it.code)) {
-                        mvpView!!.hideLoading()
-                        mvpView!!.showData(it)
-
-                        it.let { ti ->
-                            ti.data.let { data ->
-//                                for (item in data.areasOfCities) {
-//                                    databaseHelper.insertData()
-//                                }
-                                mDataManager.mPreferencesHelper.putString("date", Calendar.getInstance().time.toString())
-                            }
-                        }
-
-                    } else {
-                        mvpView!!.hideLoading()
-                        mvpView!!.showError(it.msg[0])
-                    }
-                }, {
-                    if (it is SocketTimeoutException) {
-                        mvpView!!.hideLoading()
-                        mvpView!!.showError("Sorry our server is currently not available temporarily. Please try again in few minutes")
-                    } else {
-                        mvpView!!.hideLoading()
-                        mvpView!!.showError(it.message.toString())
-                    }
-                })
-        )
-    }
 }

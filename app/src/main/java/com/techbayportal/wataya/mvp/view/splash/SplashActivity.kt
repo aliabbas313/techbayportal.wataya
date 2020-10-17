@@ -1,21 +1,21 @@
 package com.techbayportal.wataya.mvp.view.splash
 
-import android.app.Activity
-import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
-import android.os.Handler
 import android.view.View
-import android.view.WindowManager
-import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
-import com.techbayportal.wataya.R
-import com.techbayportal.wataya.helper.Helper
-import com.techbayportal.wataya.mvp.data.local.PreferencesHelper
-import com.techbayportal.wataya.mvp.view.main.MainActivity
-import dagger.android.AndroidInjector
-import dagger.android.DispatchingAndroidInjector
+import android.os.Handler
 import javax.inject.Inject
+import android.app.Activity
+import android.graphics.Color
+import com.techbayportal.wataya.R
+import android.view.WindowManager
+import dagger.android.AndroidInjector
+import androidx.fragment.app.Fragment
+import com.techbayportal.wataya.helper.Helper
+import androidx.appcompat.app.AppCompatActivity
+import dagger.android.DispatchingAndroidInjector
+import com.techbayportal.wataya.mvp.view.main.MainActivity
+import com.techbayportal.wataya.mvp.data.local.PreferencesHelper
 
 class SplashActivity : AppCompatActivity(), SplashInterfaces.SplashView {
 
@@ -57,7 +57,7 @@ class SplashActivity : AppCompatActivity(), SplashInterfaces.SplashView {
         }
         mMainPresenter.onAttach(this)
 
-        Helper.makeDelayJump(this, MainActivity::class, 500)
+        Helper.makeDelayJump(this, MainActivity::class, 1200)
     }
 
     override fun hideActionBar() {

@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    tools:context=".mvp.view.addaddress.AddAddress">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/_8sdp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:divider="@drawable/divider"
+            android:showDividers="middle"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:includeFontPadding="false"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:textSize="25sp"
+                android:hint="Building name"
+                android:textColorHint="@android:color/black"/>
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/building_name"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:textSize="@dimen/_22ssp"
+                android:includeFontPadding="false"
+                android:textColorHint="@android:color/black"
+                android:textDirection="ltr"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:includeFontPadding="false"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:textSize="25sp"
+                android:hint="Apartment name"
+                android:textColorHint="@android:color/black"/>
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/apartment_name"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:textSize="@dimen/_22ssp"
+                android:includeFontPadding="false"
+                android:textColorHint="@android:color/black"
+                android:textDirection="ltr"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:includeFontPadding="false"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:textSize="25sp"
+                android:hint="Street address"
+                android:textColorHint="@android:color/black"/>
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/street_address"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:textSize="@dimen/_22ssp"
+                android:includeFontPadding="false"
+                android:textColorHint="@android:color/black"
+                android:textDirection="ltr"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:includeFontPadding="false"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:textSize="25sp"
+                android:hint="City"
+                android:textColorHint="@android:color/black"/>
+
+            <androidx.appcompat.widget.AppCompatSpinner
+                android:id="@+id/city_spinner"
+                android:layout_height="45dp"
+                android:layout_width="match_parent"
+                android:background="@android:color/darker_gray"
+                android:textSize="@dimen/_22ssp"
+                android:includeFontPadding="false"
+                android:textColorHint="@android:color/black"
+                android:textDirection="ltr"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:includeFontPadding="false"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:textSize="25sp"
+                android:hint="Area"
+                android:textColorHint="@android:color/black"/>
+
+            <androidx.appcompat.widget.AppCompatSpinner
+                android:id="@+id/area_spinner"
+                android:layout_height="45dp"
+                android:layout_width="match_parent"
+                android:textSize="@dimen/_22ssp"
+                android:background="@android:color/darker_gray"
+                android:includeFontPadding="false"
+                android:textColorHint="@android:color/black"
+                android:textDirection="ltr"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/submit_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:text="Submit"/>
+        </LinearLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

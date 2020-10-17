@@ -7,7 +7,6 @@ import com.techbayportal.wataya.mvp.view.base.BaseInterfaces
 interface MainInterfaces {
 
     interface MainPresenter<T> {
-        fun getUserAddresses(device_id: Int, lang: String)
     }
 
     interface MainView : BaseInterfaces.BaseView {
